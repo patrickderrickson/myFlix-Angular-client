@@ -6,12 +6,16 @@ import { map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
 const apiUrl = 'https://frozen-sierra-28921.herokuapp.com/';
+// Get token from local storage for requests
+const token = localStorage.getItem('token');
+// Get username from localStorage for URLs
+const username = localStorage.getItem('user');
+
 @Injectable({
   providedIn: 'root'
 })
-export class UserRegistrationService {
-  // Inject the HttpClient module to the constructor params
- // This will provide HttpClient to the entire class, making it available via this.http
+export class FetchApiDataService {
+ 
   constructor(private http: HttpClient) {
   }
  // Making the api call for the user registration endpoint
@@ -22,7 +26,14 @@ export class UserRegistrationService {
     );
   }
 
-  getAllMovies(): Observable<any> {
+  public userLogin(userDetails: any): Observable<any> {
+    console.log(userDetails);
+    return this.http.post(apiUrl + `login`, userDetails).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public getAllMovies(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies', {headers: new HttpHeaders(
       {
