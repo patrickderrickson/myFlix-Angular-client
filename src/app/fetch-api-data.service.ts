@@ -42,8 +42,20 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
+    
+    public getUser(Username: any): Observable<any> {
+      const token = localStorage.getItem('token');
+      const username = localStorage.getItem('user');
+      return this.http
+        .get(apiUrl + `users/${username}`, {
+          headers: new HttpHeaders({
+            Authorization: 'Bearer ' + token,
+          })}).pipe(
+            catchError(this.handleError)
+          );
+        }
 
-  getMovie(): Observable<any> {
+  public getMovie(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/:Title', {headers: new HttpHeaders(
       {
@@ -53,7 +65,7 @@ export class FetchApiDataService {
     );
   }
 
-  getDirector(): Observable<any> {
+  public getDirector(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/director/:director', {headers: new HttpHeaders(
       {
@@ -63,7 +75,7 @@ export class FetchApiDataService {
     );
   }
 
-  getGenre(): Observable<any> {
+  public getGenre(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/genre/:genre', {headers: new HttpHeaders(
       {
@@ -73,7 +85,7 @@ export class FetchApiDataService {
     );
   }
 
-  getFavouriteMovies(): Observable<any> {
+  public getFavouriteMovies(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/:Username', {headers: new HttpHeaders(
       {
@@ -83,7 +95,7 @@ export class FetchApiDataService {
     );
   }
 
-  addFavouriteMovie(): Observable<any> {
+  public addFavouriteMovie(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/:Username/movies/:MovieID', {headers: new HttpHeaders(
       {
@@ -93,7 +105,7 @@ export class FetchApiDataService {
     );
   }
 
-  deleteFavouriteMovie(): Observable<any> {
+  public deleteFavouriteMovie(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/:Username/movies/:MovieID', {headers: new HttpHeaders(
       {
@@ -103,7 +115,7 @@ export class FetchApiDataService {
     );
   }
 
-  editProfile(): Observable<any> {
+  public editProfile(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/:Username', {headers: new HttpHeaders(
       {
@@ -113,7 +125,7 @@ export class FetchApiDataService {
     );
   }
 
-  deleteProfile(): Observable<any> {
+  public deleteProfile(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/:Username', {headers: new HttpHeaders(
       {
